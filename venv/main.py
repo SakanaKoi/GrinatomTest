@@ -16,7 +16,7 @@ async def read_root():
 async def start_robot(background_tasks: BackgroundTasks, start_number: int = 0):
     global bot_status
     if bot_status is None or bot_status.poll() is not None:
-        bot_status = subprocess.Popen(["python", "robot.py", str(start_number)])
+        bot_status = subprocess.Popen(["python", "./venv/robot.py", str(start_number)])
         background_tasks.add_task(wait_for_robot())
         return {"message": "Робот начал свою работу."}
     else:
@@ -39,4 +39,4 @@ async def wait_for_robot():
     bot_status = None
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    uvicorn.run(app, host="127.0.0.1", port=8080)
